@@ -1,14 +1,27 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, FlatList, Platform, StatusBar } from 'react-native';
 import { Container, Header, Content, ListItem, Left, Body } from 'native-base';
-import { createDrawerNavigator } from 'react-navigation';
+// import { createDrawerNavigator } from 'react-navigation';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
 
 import MyIcon from './components/MyIcon';
-import Home from './screens/Home';
+import HomeScreen from './screens/Home';
+
+const Drawer = createDrawerNavigator();
 
 export default class App extends React.Component {
   render() {
-    return <AppDrawerNavigator />;
+    return (
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName={"Home"}
+          drawerContent={(props) => <CustomDrawerContentComponent {...props} />}
+        >
+          <Drawer.Screen name="Home" component={HomeScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    );
   }
 }
 
@@ -100,15 +113,15 @@ const CustomDrawerContentComponent = (props)=>{
   );
 };
 
-const AppDrawerNavigator = createDrawerNavigator({
-  HomeScreen: { screen: Home }
-},{
-  drawerPosition: 'left',
-  contentComponent: CustomDrawerContentComponent,
-  drawerOpenRoute: 'DrawerOpen',
-  drawerCloseRoute: 'DrawerClose',
-  drawerToggleRoute: 'DrawerToggle',
-});
+// const AppDrawerNavigator = createDrawerNavigator({
+//   HomeScreen: { screen: Home }
+// },{
+//   drawerPosition: 'left',
+//   contentComponent: CustomDrawerContentComponent,
+//   drawerOpenRoute: 'DrawerOpen',
+//   drawerCloseRoute: 'DrawerClose',
+//   drawerToggleRoute: 'DrawerToggle',
+// });
 
 const styles = StyleSheet.create({
   androidHeader: {
